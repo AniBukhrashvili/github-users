@@ -1,14 +1,30 @@
-import { useRef } from "react";
+import { useState } from "react";
 
-import { Button, TextField } from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
+
+import Card from "../Card/Card";
+import Loading from "../Loading/Loading";
 
 const Search = () => {
-  const inputEl = useRef(null);
+  const [inputValue, setInputValue] = useState("");
+  const [userData, setUserData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchUsers = async (username) => {
+    setIsLoading(true);
+    const response = await fetch(`https://api.github.com/users/${username}`);
+    const data = await response.json();
+
+    setUserData(data);
+    setIsLoading(false);
+  };
 
   const handleClick = () => {
-    const inputValue = inputEl.current.value;
+    fetchUsers(inputValue);
+  };
 
-    console.log(inputValue);
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
   };
 
   return (
@@ -18,7 +34,7 @@ const Search = () => {
         placeholder="Search"
         label="Enter Username"
         variant="standard"
-        ref={inputEl}
+        onChange={handleInputChange}
         sx={{ marginTop: "100px", width: "60%" }}
       />
       <Button
@@ -28,6 +44,19 @@ const Search = () => {
       >
         Search
       </Button>
+      <Grid>
+        {isLoading ? (
+          <Loading />
+        ) : userData && userData.login ? (
+          <Card
+            login={userData.login}
+            avatar_url={userData.avatar_url}
+            repos_url={userData.repos_url}
+          />
+        ) : (
+          <div>No user found</div>
+        )}
+      </Grid>
     </>
   );
 };
