@@ -2,7 +2,7 @@ import { Grid, Link, Typography } from "@mui/material";
 import "./Card.css";
 
 const Card = (props) => {
-  const { login, avatar_url, repos_url } = props;
+  const { login, avatar_url, html_url } = props;
 
   return (
     <>
@@ -10,13 +10,19 @@ const Card = (props) => {
         <Grid>
           <img src={avatar_url} />
         </Grid>
-        <Grid>
-          <Typography>Name: {login}</Typography>
+        <Grid container justifyContent="center">
+          <Typography sx={{ marginRight: "50px" }}>
+            UserName: {login}
+          </Typography>
           <Link
-            href={repos_url}
-            sx={{ textDecoration: "none", color: "white", cursor: "pointer" }}
+            href={html_url}
+            sx={{
+              textDecoration: "none",
+              cursor: "pointer",
+              color: "#848094",
+            }}
           >
-            Repositories: {repos_url}
+            Visit GitHub
           </Link>
         </Grid>
       </Grid>
