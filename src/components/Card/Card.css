@@ -1,0 +1,21 @@
+.card-div {
+    display: flex;
+    justify-content: space-between;
+    font-style: italic;
+    align-items: center;
+    color: white;
+    margin: 0 auto;
+    margin-top: 50px;
+    border-radius: 6px;
+    width: 75%;
+    padding: 20px;
+    background-color: #24292f;
+}
+
+img {
+    width: 45%;
+    padding: 20px;
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+}
